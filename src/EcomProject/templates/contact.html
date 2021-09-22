@@ -8,7 +8,7 @@
             <!-- Bootstrap CSS -->
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-            <title>Hello, world!</title>
+            <title>Contact</title>
         </head>
         <body>
             <div class="text-center">
@@ -17,6 +17,26 @@
 
             <!-- call the context data here -->
             <h4>{{ title }}</h4>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="col-sm-6 col-12">
+                            <form method="POST"> {% csrf_token %}
+                                <!-- Using Django Forms -->
+                                {{ form }}
+                            </form>
+
+                            <form method="POST"> {% csrf_token %}
+                                <input type="text" class="form-control" placeholder="Name" name="fullname">
+                                <input type="email" class="form-control" placeholder="Email" name="email">
+                                <textarea class="form-control" placeholder="Write here..." name="content"></textarea>
+                                <button type="submit" class="btn btn-info">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- Optional JavaScript -->
             <!-- jQuery first, then Popper.js, then Bootstrap JS -->
