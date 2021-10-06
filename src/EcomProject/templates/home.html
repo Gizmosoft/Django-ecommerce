@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
         <html lang="en">
         <head>
@@ -8,7 +9,9 @@
             <!-- Bootstrap CSS -->
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-            <title>Hello, world!</title>
+            <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+
+            <title>Home</title>
         </head>
         <body>
             <div class="text-center">
@@ -17,6 +20,31 @@
 
             <!-- call the context data here -->
             <h4>{{ title }}</h4>
+
+            <img src="{% static 'img/Giddy_Logo.png' %}" alt="Logo" class="img-fluid">
+
+            {% if user.is_authenticated %}
+                <p>Welcome, <strong>{{request.user.username}}</strong></p>
+                <form action='logout' method='GET'>
+                <button type="submit" class="btn btn-danger" style="float: right;">Logout</button>
+                </form>
+
+                {{ premium_content }}
+            {% else %}
+                <form action='register' method='GET'>
+                    <button type="submit" class="btn btn-info" style="float: right;">Register</button>
+                </form>
+                <form action='login' method='GET'>
+                    <button type="submit" class="btn btn-success" style="float: right;">Login</button>
+                </form>
+            {% endif %}
+
+            <!-- These messages provide info about various status in websites -->
+            {% if messages %}
+                {% for message in messages %}
+                    <strong> {{ message }} </strong>
+                {% endfor %}
+            {% endif %}
 
             <!-- Optional JavaScript -->
             <!-- jQuery first, then Popper.js, then Bootstrap JS -->

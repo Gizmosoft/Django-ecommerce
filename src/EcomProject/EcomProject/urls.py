@@ -13,15 +13,30 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path
 
-from .views import home_page, about_page, contact_page, login_page
+from django.conf import settings
+from django.conf.urls.static import static
+
+from django.contrib import admin
+from django.urls import path, re_path
+
+from products.views import ProductListView, product_list_view, ProductDetailView, product_detail_view
+from .views import home_page, about_page, contact_page, login_page, register_page, logout_operation
 
 urlpatterns = [
     path('', home_page),
     path('login/', login_page),
+    path('register/', register_page),
     path('about/', about_page),
     path('contact/', contact_page),
+    path('products-class/', ProductListView.as_view()),     # making class based view as callable
+    path('products-function/', product_list_view),
+    re_path(r'^products-class/(?P<pk>\d+)/$', ProductDetailView.as_view()),     # making class based view as callable
+    re_path(r'^products-function/(?P<pk>\d+)/$', product_detail_view),
+    path('logout/', logout_operation),
     path('admin/', admin.site.urls),
 ]
+
+if settings.DEBUG:
+    urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
