@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
-from django.http import Http404
+from django.http import Http404, request
 
 # Create your views here.
 from .models import Product
@@ -16,6 +16,13 @@ class ProductListView(ListView):
     #     print(context)
     #     return context
 
+class ProductFeaturedDetailedView(DetailView):
+    queryset = Product.objects.featured()
+    template_name = "product/featured.html"
+
+    # def get_queryset(self, *args, **kwargs):
+    #     request = self.request
+    #     return Product.objects.featured()
 
 # function based view
 def product_list_view(request):
@@ -48,13 +55,18 @@ def product_detail_view(request, pk=None, *args, **kwargs):
     #     print("no product here")
     #     raise Http404("Product Does Not Exist!")
 
-    # Another way to do what we did above is by using queryset filters...
-    qs = Product.objects.filter(pk=pk)
-    print(qs)
-    if(qs.exists() and qs.count() == 1):
-        instance = qs.first()
-    else:
+    # getting an instance of a custom model manager - by doing this, we are doing the below operation within the Models by customizing the model manager
+    instance = Product.objects.get_by_id(pk)
+    if instance is None:
         raise Http404("Product Does Not Exist!")
+
+    # Another way to do what we did above is by using queryset filters...
+    # qs = Product.objects.filter(pk=pk)
+    # print(qs)
+    # if(qs.exists() and qs.count() == 1):
+    #     instance = qs.first()
+    # else:
+    #     raise Http404("Product Does Not Exist!")
 
     context = {
         'object' : instance
