@@ -34,11 +34,12 @@ class ProductManager(models.Manager):
 
 # Create your models here. -> defines how we are connecting our Django app to a database
 class Product(models.Model):
-    title = models.CharField(max_length=100)
+    title       = models.CharField(max_length=100)
+    slug        = models.SlugField(blank=True, unique=True)
     description = models.TextField()
-    price = models.DecimalField(decimal_places=2, max_digits=10, null=True)
-    image = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
-    featured = models.BooleanField(default=False)
+    price       = models.DecimalField(decimal_places=2, max_digits=10, null=True)
+    image       = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
+    featured    = models.BooleanField(default=False)
 
     objects = ProductManager()
 

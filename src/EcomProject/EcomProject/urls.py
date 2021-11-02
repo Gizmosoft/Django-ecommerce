@@ -23,6 +23,7 @@ from django.urls import path, re_path
 from products.views import (ProductListView, 
                             product_list_view,
                             ProductDetailView,
+                            ProductDetailSlugView,
                             product_detail_view,
                             ProductFeaturedDetailedView
                             )
@@ -38,6 +39,7 @@ urlpatterns = [
     path('products-class/', ProductListView.as_view()),     # making class based view as callable
     path('products-function/', product_list_view),
     re_path(r'^products-class/(?P<pk>\d+)/$', ProductDetailView.as_view()),     # making class based view as callable
+    re_path(r'^products-class/(?P<slug>[\w-]+)/$', ProductDetailSlugView.as_view()),
     re_path(r'^products-function/(?P<pk>\d+)/$', product_detail_view),
     path('logout/', logout_operation),
     path('admin/', admin.site.urls),

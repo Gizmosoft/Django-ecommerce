@@ -32,6 +32,26 @@ def product_list_view(request):
     }
     return render(request, "product/list.html", context)
 
+class ProductDetailSlugView(DetailView):
+    queryset = Product.objects.all()        # get all data from DB
+    template_name = "product/detail.html"
+
+    def get_object(self, *args, **kwargs):
+        request = self.request
+        slug = self.kwargs.get('slug')
+        #instance = get_object_or_404(Product, slug=slug)
+        try:
+            instance = Product.objects.get(slug=slug)
+        except Product.DoesNotExist:
+            raise Http404("Product Not Found")
+        except Product.MultipleObjectsReturned:
+            qs = Product.objects.filter(slug=slug)
+            instance = qs.first()
+        except:
+            raise Http404("Error out of bounds!")
+        return instance
+
+
 class ProductDetailView(DetailView):
     # queryset = modelclass.objects.function()
     queryset = Product.objects.all()        # get all data from DB
