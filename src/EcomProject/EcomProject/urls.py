@@ -18,15 +18,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import path, include
 
-from products.views import (ProductListView, 
-                            product_list_view,
-                            ProductDetailView,
-                            ProductDetailSlugView,
-                            product_detail_view,
-                            ProductFeaturedDetailedView
-                            )
+# from products.views import (ProductListView, 
+#                             product_list_view,
+#                             ProductDetailView,
+#                             ProductDetailSlugView,
+#                             product_detail_view,
+#                             ProductFeaturedDetailedView
+#                             )
 from .views import home_page, about_page, contact_page, login_page, register_page, logout_operation
 
 urlpatterns = [
@@ -35,12 +35,13 @@ urlpatterns = [
     path('register/', register_page),
     path('about/', about_page),
     path('contact/', contact_page),
-    re_path(r'^featured/(?P<pk>\d+)/$', ProductFeaturedDetailedView.as_view()),
-    path('products-class/', ProductListView.as_view()),     # making class based view as callable
-    path('products-function/', product_list_view),
-    re_path(r'^products-class/(?P<pk>\d+)/$', ProductDetailView.as_view()),     # making class based view as callable
-    re_path(r'^products-class/(?P<slug>[\w-]+)/$', ProductDetailSlugView.as_view()),
-    re_path(r'^products-function/(?P<pk>\d+)/$', product_detail_view),
+    path('products/', include("products.urls")),
+    # re_path(r'^featured/(?P<pk>\d+)/$', ProductFeaturedDetailedView.as_view()),
+    # path('products-class/', ProductListView.as_view()),     # making class based view as callable
+    # path('products-function/', product_list_view),
+    # re_path(r'^products-class/(?P<pk>\d+)/$', ProductDetailView.as_view()),     # making class based view as callable
+    # re_path(r'^products-class/(?P<slug>[\w-]+)/$', ProductDetailSlugView.as_view()),
+    # re_path(r'^products-function/(?P<pk>\d+)/$', product_detail_view),
     path('logout/', logout_operation),
     path('admin/', admin.site.urls),
 ]
