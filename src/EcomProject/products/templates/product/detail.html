@@ -1,3 +1,6 @@
+{% include 'base/css.html' %}
+{% block base_head %} {% endblock %}
+
 {{ object.title }} <br>
 {% if object.image %}
     <img src="{{ object.image.url }}"  class="img-fluid"/> <br>
@@ -5,4 +8,4 @@
 {{ object.description }} <br>
 {{ object.price }} <br>
 
-<a href="/products">Back</a>
+<a href="{% url 'list' %}" class="btn btn-warning">Back</a>

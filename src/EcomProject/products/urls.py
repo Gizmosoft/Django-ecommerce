@@ -1,4 +1,5 @@
 from django.urls import path, re_path
+from django.views.generic import detail
 
 from .views import (
                     ProductListView, 
@@ -6,6 +7,6 @@ from .views import (
                     )
 
 urlpatterns = [
-    path('', ProductListView.as_view()),     # making class based view as callable
-    re_path(r'^(?P<slug>[\w-]+)/$', ProductDetailSlugView.as_view()),
+    path('', ProductListView.as_view(), name='list'),     # making class based view as callable
+    re_path(r'^(?P<slug>[\w-]+)/$', ProductDetailSlugView.as_view(), name='detail'),
 ]
