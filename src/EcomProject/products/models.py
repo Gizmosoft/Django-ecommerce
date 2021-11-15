@@ -48,7 +48,7 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         #return "/products/{slug}/".format(slug=self.slug)
-        return reverse("detail", kwargs={"slug": self.slug})
+        return reverse("products:detail", kwargs={"slug": self.slug})
 
     # saves each product with its title as name
     def __str__(self):  

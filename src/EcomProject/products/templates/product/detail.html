@@ -1,11 +1,16 @@
 {% include 'base/css.html' %}
 {% block base_head %} {% endblock %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            {{ object.title|title }} <br>
+            {% if object.image %}
+                <img src="{{ object.image.url }}"  class="img-fluid"/> <br>
+            {% endif %}
+            {{ object.description|linebreaks }} <br>
+            {{ object.price }} <br>
+        </div>
+    </div>
+</div>
 
-{{ object.title }} <br>
-{% if object.image %}
-    <img src="{{ object.image.url }}"  class="img-fluid"/> <br>
-{% endif %}
-{{ object.description }} <br>
-{{ object.price }} <br>
-
-<a href="{% url 'list' %}" class="btn btn-warning">Back</a>
+<a href="{% url 'products:list' %}" class="btn btn-warning">Back</a>
