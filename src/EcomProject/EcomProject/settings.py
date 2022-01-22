@@ -135,3 +135,7 @@ MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "media_root")
 # *** SUPERUSER CREDENTIALS *** #
 # USERNAME = root
 # PASSWORD = root
+
+# *** TEST USER CREDENTIALS *** #
+# USERNAME = testuser
+# PASSWORD = test123
