@@ -37,6 +37,7 @@ urlpatterns = [
     path('about/', about_page, name='about'),
     path('contact/', contact_page, name='contact'),
     path('products/', include(("products.urls", 'products'), namespace='products')),
+    path('search/', include(("search.urls", 'search'), namespace='search')),
     # re_path(r'^featured/(?P<pk>\d+)/$', ProductFeaturedDetailedView.as_view()),
     # path('products-class/', ProductListView.as_view()),     # making class based view as callable
     # path('products-function/', product_list_view),
