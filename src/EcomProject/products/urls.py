@@ -4,7 +4,7 @@ from django.views.generic import detail
 from .views import (
                     ProductListView, 
                     ProductDetailSlugView,
-                    )
+                    ) 
 app_name = 'products'
 urlpatterns = [
     path('', ProductListView.as_view(), name='list'),     # making class based view as callable

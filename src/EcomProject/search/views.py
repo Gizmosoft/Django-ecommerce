@@ -1,5 +1,4 @@
 from django.http import request
-from django.shortcuts import render
 
 from django.shortcuts import render 
 from products.models import Product
@@ -21,5 +20,5 @@ class SearchProductView(ListView):
         query = request.GET.get('q', None)
         print(query)
         if query is not None:
-            return Product.objects.filter(title__icontains=query)
+            return Product.objects.search(query) 
         return Product.objects.featured()

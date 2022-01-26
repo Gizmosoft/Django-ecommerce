@@ -1,8 +1,9 @@
 import os
 import random
 
+from django.db.models import Q 
 from django.db import models
-from django.db.models.signals import pre_save # to do some operation just before saving to DB
+from django.db.models.signals import pre_save, post_save # to do some operation just before saving to DB
 from .utils import unique_slug_generator
 from django.urls import reverse
 
@@ -20,6 +21,15 @@ def upload_image_path(instance, filename):
 class ProductQuerySet(models.query.QuerySet):
     def featured(self):
         return self.filter(featured=True)
+    
+    def search(self, query):
+        # Q helps us do multiple queries at once
+        lookups = (
+                    Q(title__icontains=query) |
+                    Q(description__icontains=query) |
+                    Q(tag__title__icontains=query)
+                )
+        return self.filter(lookups).distinct()  # removes redundant queries
 
 # Creating custom Model Manager
 class ProductManager(models.Manager):
@@ -34,6 +44,10 @@ class ProductManager(models.Manager):
         if qs.count() == 1:
             return qs.first()
         return None
+
+    def search(self, query):
+        return self.get_queryset().search(query)
+
 
 # Create your models here. -> defines how we are connecting our Django app to a database
 class Product(models.Model):
