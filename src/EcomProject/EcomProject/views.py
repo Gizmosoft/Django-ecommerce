@@ -6,6 +6,9 @@ from django.contrib.auth import authenticate, login, logout, get_user_model
 from .forms import ContactForm, LoginForm, RegisterForm
 
 def home_page(request):
+    # a session variable has been created and stored in the cart_home() view in carts app which we can retrieve here as well.
+    #print(request.session.get('first_name', 'Unknown')) # the second value is the default value that we have given which will be displayed by default in case no login is detected
+
     # create a python dictionary "context" and pass an arbitrary field value with a name ex: title
     context = {
         'title': 'We are in the Home Page.',
