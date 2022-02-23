@@ -29,7 +29,6 @@ from django.urls import path, include
 #                             ProductFeaturedDetailedView
 #                             )
 from .views import home_page, about_page, contact_page, login_page, register_page, logout_operation
-from carts.views import cart_home
 
 urlpatterns = [
     path('', home_page, name='home'),
@@ -37,7 +36,8 @@ urlpatterns = [
     path('register/', register_page, name='register'),
     path('about/', about_page, name='about'),
     path('contact/', contact_page, name='contact'),
-    path('cart/', cart_home, name='cart'),
+    #path('cart/', cart_home, name='cart'),
+    path('cart/', include(("carts.urls", 'carts'), namespace='cart')),
     path('products/', include(("products.urls", 'products'), namespace='products')),
     path('search/', include(("search.urls", 'search'), namespace='search')),
     # re_path(r'^featured/(?P<pk>\d+)/$', ProductFeaturedDetailedView.as_view()),

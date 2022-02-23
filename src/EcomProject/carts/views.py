@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from .models import Cart
+from products.models import Product
 # Create your views here.
 
 ## The logic of the below method has been moved to models.py
@@ -16,14 +17,33 @@ def cart_home(request):
     cart_obj, new_obj = Cart.obj.new_or_get(request)
 
 ## Below is a very simple and inefficient way of calculating cart total price
-    products = cart_obj.product.all()
-    total = 0
-    # Calculate total cart price
-    for p in products:
-        total += p.price
-    print(total)
-    cart_obj.total = total
-    cart_obj.save()
+    # products = cart_obj.product.all()
+    # total = 0
+    # # Calculate total cart price
+    # for p in products:
+    #     total += p.price
+    # print(total)
+    # cart_obj.total = total
+    # cart_obj.save()
+    return render(request, "carts/home.html", {"cart": cart_obj})
+
+def cart_update(request):
+    print(request.POST)
+    product_id = request.POST.get('product_id')
+    if product_id is not None:
+        try:
+            product_obj = Product.objects.get(id=product_id)
+        except Product.DoesNotExist:
+            print("Product does not exist anymore!")
+            return redirect("cart:home")
+        cart_obj, new_obj = Cart.obj.new_or_get(request)
+        if product_obj in cart_obj.product.all():
+            cart_obj.product.remove(product_obj)
+        else:
+            cart_obj.product.add(product_obj)   # or --> cart_obj.product.add(product_id) | The addition of the new product obj happens in the models.py where we have called m2m_changed()
+        request.session['cart_items_count'] = cart_obj.product.count()    # counts the total number of products in cart
+    return redirect("cart:home")
+
 
 # All the lines/snippets marked with --> have been moved to the CartManager model simplifying the views.
     #del request.session['cart_id']      # delete the previous session id

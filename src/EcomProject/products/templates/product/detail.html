@@ -2,13 +2,17 @@
 {% block base_head %} {% endblock %}
 <div class="container">
     <div class="row">
-        <div class="col">
+        <div class="col-12 col-md-6">
             {{ object.title|title }} <br>
             {% if object.image %}
                 <img src="{{ object.image.url }}"  class="img-fluid"/> <br>
             {% endif %}
             {{ object.description|linebreaks }} <br>
             {{ object.price }} <br>
+        </div>
+        <div class="col-12 col-md-6">
+            {% include 'product/snippets/update-cart.html' with product=object cart=cart %}
+            
         </div>
     </div>
 </div>

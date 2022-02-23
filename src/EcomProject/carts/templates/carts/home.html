@@ -3,4 +3,39 @@
 {% block content %}
 <h1>Cart</h1>
 
+{% if cart.product.exists %}
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Product Price</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for product in cart.product.all %}
+      <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <!-- product.name works because of @property defined in products models -->
+        <td><a href="{{ product.get_absolute_url }}">{{product.title}}</a></td> 
+        <td>{{ product.price }}</td>
+        <td>{% include 'product/snippets/update-cart.html' with product=product cart=cart in_cart=True %}</td>
+        <!-- <td><small><a href="#">Remove?</a></small></td> -->
+      </tr>
+        {% endfor %}
+      <tr>
+        <td colspan="2"></td>
+        <td><b>Subtotal : </b> {{ cart.subtotal }}</td>
+      </tr>
+      <tr>
+        <td colspan="2"></td>
+        <td><b>Total </b>(inclusive of all taxes)<b> : {{ cart.total }}</b></td>
+      </tr>
+    </tbody>
+  </table>
+
+  {% else %}
+  <p class="lead">Cart is empty! Please add some items from the Products</p>
+  {% endif %}
+
 {% endblock %}
