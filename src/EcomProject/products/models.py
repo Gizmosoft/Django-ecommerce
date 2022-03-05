@@ -4,7 +4,7 @@ import random
 from django.db.models import Q 
 from django.db import models
 from django.db.models.signals import pre_save, post_save # to do some operation just before saving to DB
-from .utils import unique_slug_generator
+from EcomProject.utils import unique_slug_generator
 from django.urls import reverse
 
 def get_filename_ext(filepath):

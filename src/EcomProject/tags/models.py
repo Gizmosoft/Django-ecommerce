@@ -1,7 +1,7 @@
 from django.db import models
 
 from django.db.models.signals import pre_save, post_save # to do some operation just before saving to DB
-from products.utils import unique_slug_generator
+from EcomProject.utils import unique_slug_generator
 from django.urls import reverse
 
 from products.models import Product
