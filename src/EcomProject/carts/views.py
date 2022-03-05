@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 
 from .models import Cart
 from products.models import Product
+from orders.models import Order
 # Create your views here.
 
 ## The logic of the below method has been moved to models.py
@@ -43,6 +44,15 @@ def cart_update(request):
             cart_obj.product.add(product_obj)   # or --> cart_obj.product.add(product_id) | The addition of the new product obj happens in the models.py where we have called m2m_changed()
         request.session['cart_items_count'] = cart_obj.product.count()    # counts the total number of products in cart
     return redirect("cart:home")
+
+def checkout_home(request):
+    cart_obj, cart_created = Cart.obj.new_or_get(request)
+    order_obj = None
+    if cart_created or cart_obj.product.count() == 0:
+        return redirect("cart:home")
+    else:
+        order_obj, new_order_obj = Order.objects.get_or_create(cart=cart_obj)
+    return render(request, "carts/checkout.html", {"object":order_obj}) # sending details as "object" so should be retrieved as objects
 
 
 # All the lines/snippets marked with --> have been moved to the CartManager model simplifying the views.
