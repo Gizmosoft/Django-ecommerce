@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Register</h1>
+    <div class="col-md-6">
+        <form method="POST"> {% csrf_token %}
+            <!-- Using Django Forms -->
+            {{ form }}
+            <div class="py-2">
+                <button type="submit" class="btn btn-info">Register</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

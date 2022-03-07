@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Login</h1>
+    <div class="col-md-5">
+        <form method="POST"> {% csrf_token %}
+            <!-- Using Django Forms -->
+            {{ form }}
+            <div class="py-2">
+                <button type="submit" class="btn btn-success">Submit</button>
+            </div>
+        </form>
+        {% if error_message %}
+        <div class="alert alert-danger" role="alert">
+            {{ error_message }}
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+    <!-- These messages provide info about various status in websites -->
+    {% if messages %}
+    {% for message in messages %}
+        <strong> {{ message }} </strong>
+    {% endfor %}
+    {% endif %}
+{% endblock %}

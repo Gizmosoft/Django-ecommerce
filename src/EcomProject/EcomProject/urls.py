@@ -28,7 +28,8 @@ from django.urls import path, include
 #                             product_detail_view,
 #                             ProductFeaturedDetailedView
 #                             )
-from .views import home_page, about_page, contact_page, login_page, register_page, logout_operation
+from .views import home_page, about_page, contact_page 
+from accounts.views import login_page, register_page, logout_operation
 
 urlpatterns = [
     path('', home_page, name='home'),

@@ -40,11 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # personal apps
-    'products',
-    'search',
-    'tags',
-    'carts',
-    'orders',
+    'accounts',     # app for handling account authentications
+    'products',     # app for building product catalogue
+    'search',       # app for enabling product search within our application
+    'tags',         # app for creating and managing product tags for easier search 
+    'carts',        # app for creating and handling carts and checkout
+    'orders',       # app for building customer orders based on session
 ]
 
 MIDDLEWARE = [

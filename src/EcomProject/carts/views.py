@@ -84,4 +84,4 @@ def checkout_home(request):
     # request.session['first_name'] = 'Kartikey' # Setter 
     # Doing something like below would not be possible as we cannot assign an object to a field in dictionary
     #request.session['xyz'] = request.user
-    return render(request, "carts/home.html", {})
+    #return render(request, "carts/home.html", {})
