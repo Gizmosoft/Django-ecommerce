@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'tags',         # app for creating and managing product tags for easier search 
     'carts',        # app for creating and handling carts and checkout
     'orders',       # app for building customer orders based on session
+    'billing',      # app for handling billing related procedures
 ]
 
 MIDDLEWARE = [
